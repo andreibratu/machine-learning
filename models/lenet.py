@@ -1,8 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
-DEBUG = True
-
 
 class LeNet(nn.Module):
 
@@ -18,20 +16,15 @@ class LeNet(nn.Module):
         self.fc4 = nn.Linear(84, 10)
 
     def forward(self, x):
-        global DEBUG
         # Max pooling over a (2, 2) window
-        if DEBUG: print(x.size())
         x = F.max_pool2d(F.relu(self.conv1(x)), (2, 2))
-        if DEBUG: print(x.size())
         # If the size is a square you can only specify a single number
         x = F.max_pool2d(F.relu(self.conv2(x)), 2)
-        if DEBUG: print(x.size())
         x = x.view(-1, self.num_flat_features(x))
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = F.relu(self.fc3(x))
         x = self.fc4(x)
-        DEBUG = False
         return x
 
     @staticmethod

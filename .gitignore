@@ -2,3 +2,4 @@
 *.xml
 ./data
 ./notebooks/data/
+*.mp3
